@@ -807,52 +807,25 @@ function sendAccountLinking(recipientId) {
   callSendAPI(messageData);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function sendgla(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-       text : "Successfully !"
-      }
-    }
-  };
+       text:"hello, world!"
+        }
+      
+    
+  };  
 
   callSendAPI(messageData);
 }
 
 
-function senddb(){
-
-
-
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
-
-connection.connect();
-
-var sql = "INSERT INTO raspberrypi (raspberrypi,state) VALUES ?";
-var values = [
-    ['Numberjing', '1'],
-    ['Numberjing1', '0'],
-   
-];
-connection.query(sql, [values], function(err) {
-    if (err) throw err;
-    connection.end();
-});
-
-}
-*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll 
  * get the message id in a response 
