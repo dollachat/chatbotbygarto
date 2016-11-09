@@ -840,8 +840,8 @@ connection.connect();
 
 var sql = "INSERT INTO raspberrypi (raspberrypi,state) VALUES ?";
 var values = [
-    ['Numberfc1', '1'],
-    ['Numberfc', '0'],
+    ['Numberhi1', '1'],
+    ['Numberhi2', '0'],
    
 ];
 connection.query(sql, [values], function(err) {
