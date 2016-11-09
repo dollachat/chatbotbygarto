@@ -822,7 +822,36 @@ function sendgla(recipientId) {
   };  
 
   callSendAPI(messageData);
+  senddb();
 }
+
+function senddb(){
+
+
+
+var connection = mysql.createConnection({
+host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'c4xt0mnh7gsp6lee',
+  password : 'wa9jf0jnak5u2xax',
+  database : 'q7czfydkfgzwv903'
+});
+
+connection.connect();
+
+var sql = "INSERT INTO raspberrypi (raspberrypi,state) VALUES ?";
+var values = [
+    ['Numberfc1', '1'],
+    ['Numberfc', '0'],
+   
+];
+connection.query(sql, [values], function(err) {
+    if (err) throw err;
+    connection.end();
+});
+
+}
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
