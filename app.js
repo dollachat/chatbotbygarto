@@ -828,7 +828,7 @@ function sendAccountLinking(recipientId) {
       
     
   };  
-  sendonled();
+  sendonled(recipentId);
   callSendAPI(messageData);
 
 }
@@ -845,7 +845,7 @@ function sendglaoff(recipientId) {
       
     
   };  
-  sendoffled();
+  sendoffled(recipentId);
   callSendAPI(messageData);
 
 }
@@ -858,7 +858,7 @@ function sendcheckid(recipientId) {
       id: recipientId
     },
     message: {
-       text:"RecipentID is " + recipientId + "SenderID is " + senderID
+       text:"RecipentID is " + recipientId 
          }
       
     
@@ -873,7 +873,7 @@ function sendcheckid(recipientId) {
  
 
 
-function sendonled(){
+function sendonled(recipentId){
 
 
 var connection = mysql.createConnection({
@@ -897,7 +897,7 @@ var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=
 
 }
 
-function sendoffled(){
+function sendoffled(recipentId){
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
