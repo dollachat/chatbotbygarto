@@ -816,7 +816,7 @@ function sendAccountLinking(recipientId) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  function sendglaon(recipientId) {
+ /* function sendglaon(recipientId) {
 	var thisisme = recipentId;
   var messageData = {
     recipient: {
@@ -851,7 +851,7 @@ var thisisme = recipentId;
 }
 
  
-
+*/
 function sendcheckid(recipientId) {
   var messageData = {
     recipient: {
