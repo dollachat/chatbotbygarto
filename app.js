@@ -918,10 +918,10 @@ connection.connect();
 
 //var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
-var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
+/*var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '1'    WHERE recipentpi.recipentid = ?";
- var values = thisisme;
- connection.query(sql, values, function(err) {
+ var values = thisisme;*/
+ connection.query(sql, function(err) {
     if (err) throw err;
     connection.end();
 });
