@@ -816,35 +816,6 @@ function sendAccountLinking(recipientId) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function sendglaon(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-       text:"LED ON"
-        }
-      
-    
-  };  
-
-  callSendAPI(messageData);
-  sendonled();
-}
-
-function sendglaoff(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-       text:"LED OFF"
-        }
-      
-    
-  };  
-  
-  
   function sendglaon(recipientId) {
   var messageData = {
     recipient: {
@@ -858,7 +829,7 @@ function sendglaoff(recipientId) {
   };  
 
   callSendAPI(messageData);
-  sendonled(recipentId);
+  sendonled(senderID);
 }
 
 function sendglaoff(recipientId) {
@@ -874,14 +845,10 @@ function sendglaoff(recipientId) {
   };  
 
   callSendAPI(messageData);
-  sendoffled();
+  sendoffled(senderID);
 }
 
-
-
-  callSendAPI(messageData);
-  sendoffled();
-}
+ 
 
 function sendcheckid(recipientId) {
   var messageData = {
