@@ -816,8 +816,7 @@ function sendAccountLinking(recipientId) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  function sendglaon(recipientId) {
-
+function sendglaon(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -828,13 +827,12 @@ function sendAccountLinking(recipientId) {
       
     
   };  
-  sendonled(recipentId);
-  callSendAPI(messageData);
 
+  callSendAPI(messageData);
+  sendonled();
 }
 
 function sendglaoff(recipientId) {
-
   var messageData = {
     recipient: {
       id: recipientId
@@ -845,12 +843,45 @@ function sendglaoff(recipientId) {
       
     
   };  
-  sendoffled(recipentId);
-  callSendAPI(messageData);
+  
+  
+  function sendglaon(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED ON"
+        }
+      
+    
+  };  
 
+  callSendAPI(messageData);
+  sendonled();
 }
 
- 
+function sendglaoff(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED OFF"
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
+  sendoffled();
+}
+
+
+
+  callSendAPI(messageData);
+  sendoffled();
+}
 
 function sendcheckid(recipientId) {
   var messageData = {
@@ -858,8 +889,8 @@ function sendcheckid(recipientId) {
       id: recipientId
     },
     message: {
-       text:"RecipentID is " + recipientId 
-         }
+       text:"Your ID is " + recipientId
+        }
       
     
   };  
@@ -873,8 +904,7 @@ function sendcheckid(recipientId) {
  
 
 
-function sendonled(recipentId){
-
+function sendonled(){
 
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -885,19 +915,16 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 
 connection.connect();
 
-//var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
+var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
-var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '1'    WHERE recipentpi.recipentid =?";
-
- connection.query(sql,recipentId, function(err) {
+connection.query(sql, function(err) {
     if (err) throw err;
     connection.end();
 });
 
 }
 
-function sendoffled(recipentId){
+function sendoffled(){
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -907,16 +934,12 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 
 connection.connect();
 
-//var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
-var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid =?";
+var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 
-
-connection.query(sql,recipentId, function(err) {
+connection.query(sql, function(err) {
     if (err) throw err;
-   connection.end();
+    connection.end();
 });
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
