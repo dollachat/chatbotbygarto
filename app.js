@@ -905,7 +905,7 @@ function sendcheckid(recipientId) {
 
 
 function sendonled(){
-var thisisme = recipentid;
+\
 
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -916,7 +916,7 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 
 connection.connect();
 
-//var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
+var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 /*var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '1'    WHERE recipentpi.recipentid = ?";
