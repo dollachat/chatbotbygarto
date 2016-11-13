@@ -829,7 +829,7 @@ function sendglaon(recipientId) {
   };  
 
   callSendAPI(messageData);
-  sendonled();
+  sendonled(senderID);
 }
 
 function sendglaoff(recipientId) {
@@ -904,7 +904,7 @@ function sendcheckid(recipientId) {
  
 
 
-function sendonled(){
+function sendonled(recipentid){
 
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -919,8 +919,8 @@ connection.connect();
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '1'    WHERE recipentpi.recipentid = ?";
- var values = [recipentid];
- connection.query(sql, [values], function(err) {
+ var values = recipentid;
+ connection.query(sql, values, function(err) {
     if (err) throw err;
     connection.end();
 });
