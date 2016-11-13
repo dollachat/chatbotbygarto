@@ -817,6 +817,7 @@ function sendAccountLinking(recipientId) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendglaon(recipientId) {
+	var thisisme = recipentId;
   var messageData = {
     recipient: {
       id: recipientId
@@ -827,12 +828,13 @@ function sendAccountLinking(recipientId) {
       
     
   };  
-
+  sendonled(thisisme);
   callSendAPI(messageData);
-  sendonled(senderID);
+
 }
 
 function sendglaoff(recipientId) {
+var thisisme = recipentId;
   var messageData = {
     recipient: {
       id: recipientId
@@ -843,9 +845,9 @@ function sendglaoff(recipientId) {
       
     
   };  
-
+  sendoffled(thisisme);
   callSendAPI(messageData);
-  sendoffled(senderID);
+
 }
 
  
@@ -871,7 +873,7 @@ function sendcheckid(recipientId) {
  
 
 
-function sendonled(recipentId){
+function sendonled(thisisme){
 
 
 var connection = mysql.createConnection({
@@ -887,15 +889,15 @@ connection.connect();
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '1'    WHERE recipentpi.recipentid =?";
-var RID = recipentId;
+var RID = thisisme;
  connection.query(sql,RID, function(err) {
     if (err) throw err;
-    connection.end();
+    //connection.end();
 });
-
+connection.end();
 }
 
-function sendoffled(recipentId){
+function sendoffled(thisisme){
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -908,12 +910,13 @@ connection.connect();
 //var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '0'    WHERE recipentpi.recipentid =?";
-var RID = recipentId;
+var RID = thisisme;
 
 connection.query(sql,RID, function(err) {
     if (err) throw err;
-    connection.end();
+   // connection.end();
 });
+connection.end();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
