@@ -924,7 +924,7 @@ var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=
     if (err) throw err;
     connection.end();
 });
-
+return false ;
 }
 
 function sendoffled(){
