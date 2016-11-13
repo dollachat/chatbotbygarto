@@ -319,6 +319,10 @@ function receivedMessage(event) {
 		 case 'glaoff':
 		  sendglaoff(senderID);
         break;
+		
+		case 'check id':
+		  sendcheckid(senderID);
+        break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -839,36 +843,65 @@ function sendglaoff(recipientId) {
       
     
   };  
+  
+  
+  function sendglaon(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED ON"
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
+  sendonled();
+}
+
+function sendglaoff(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED OFF"
+        }
+      
+    
+  };  
 
   callSendAPI(messageData);
   sendoffled();
 }
 
-function senddb(){
 
 
-
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
-
-connection.connect();
-
-var sql = "INSERT INTO raspberrypi (raspberrypi,state) VALUES ?";
-var values = [
-    ['Numberfc1', '1'],
-    ['Numberfc', '0'],
-   
-];
-connection.query(sql, [values], function(err) {
-    if (err) throw err;
-    connection.end();
-});
-
+  callSendAPI(messageData);
+  sendoffled();
 }
+
+function sendcheckid(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"Your ID is " + recipientId
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
+ 
+}
+
+
+
+ 
 
 
 function sendonled(){
