@@ -32,9 +32,6 @@ var mysql = require('mysql');
 
 
 
-  var GlobalsenderID = event.sender.id;
-  var GlobalrecipientID = event.recipient.id;
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * Be sure to setup your config values before running this code. You can 
@@ -329,9 +326,7 @@ function receivedMessage(event) {
 		case 'check id':
 		  sendcheckid(senderID);
         break;
-		case 'echo global':
-		  sendechoglobal(senderID);
-        break;
+		
 
       default:
         sendTextMessage(senderID, messageText);
@@ -880,24 +875,7 @@ function sendcheckid(recipientId) {
 }
  
  
- function sendechoglobal(recipientId) {
-	
 
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-       text:"Recipent ID is " + GlobalrecipientID  + "Sender ID" + GlobalsenderID
-         }
-      
-    
-  };  
-
-  callSendAPI(messageData);
- 
-}
- 
 
 
 function sendonled(RID){
