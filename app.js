@@ -822,6 +822,7 @@ function sendAccountLinking(recipientId) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendglaon(recipientId) {
 var RID = recipentId;
+/*
   var messageData = {
     recipient: {
       id: recipientId
@@ -833,7 +834,7 @@ var RID = recipentId;
     
   };  
 
-  callSendAPI(messageData);
+  callSendAPI(messageData);*/
 sendonled(RID);
 }
 
@@ -879,6 +880,20 @@ function sendcheckid(recipientId) {
 
 
 function sendonled(RID){
+	
+	var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED ON" + RID
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
+	/*
 var SRID = String(RRID);
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -894,14 +909,16 @@ connection.connect();
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
  SET state = '0'    WHERE recipentpi.recipentid = ("+ SRID +")";
 
+
  connection.query(sql, function(err) {
     if (err) throw err;
     connection.end();
-});
+});*/
 
 }
 
 function sendoffled(RRID){
+	/*
 var SRID = String(RRID);
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -921,7 +938,7 @@ connection.query(sql, function(err) {
     if (err) throw err;
    connection.end();
 });
-
+*/
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
