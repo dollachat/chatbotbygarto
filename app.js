@@ -316,11 +316,11 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 		
-	    case 'glaon':
-		  sendglaon(senderID);
+	    case 'Turn on LED':
+		  sendledon(senderID);
         break;
-		 case 'glaoff':
-		  sendglaoff(senderID);
+		 case 'Turn off LED':
+		  sendledoff(senderID);
         break;
 		
 		case 'check id':
@@ -820,27 +820,27 @@ function sendAccountLinking(recipientId) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  function sendglaon(recipientId) {
+  function sendledon(recipientId) {
  var garto = String(recipientId);
- /*
+ 
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-       text:"LED ON"  + garto 
+       text:"LED ON" 
         }
       
     
   };  
 
   callSendAPI(messageData);
-  */
-sendonled(garto);
+  
+sendonfunc(garto);
 }
 
-function sendglaoff(recipientId) {
-	
+function sendledoff(recipientId) {
+ var garto = String(recipientId);	
 var RID = recipentId;
   var messageData = {
     recipient: {
@@ -854,7 +854,7 @@ var RID = recipentId;
   };  
 
   callSendAPI(messageData);
- // sendoffled(RID);
+ sendofffunc(garto);
 }
 
  
@@ -881,11 +881,11 @@ function sendcheckid(recipientId) {
 
 
 
-function sendonled(garto){
+function sendonfunc(garto){
     
  
-	/*
-var SRID = String(RRID);
+	
+
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -898,31 +898,20 @@ connection.connect();
 //var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ SRID +")";
+ SET state = '1'    WHERE recipentpi.recipentid = ("+ garto +")";
 
 
  connection.query(sql, function(err) {
     if (err) throw err;
     connection.end();
-});*/
-var messageData = {
-    recipient: {
-      id: garto
-    },
-    message: {
-       text:"Successful Passing"  + garto 
-        }
-      
-    
-  };  
+});
 
-  callSendAPI(messageData);
 
 }
 
-function sendoffled(){
-	/*
-var SRID = String(RRID);
+function sendofffunc(garto){
+	
+
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -934,14 +923,14 @@ connection.connect();
 
 //var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ SRID +")";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ garto +")";
 
 
 connection.query(sql, function(err) {
     if (err) throw err;
    connection.end();
 });
-*/
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
