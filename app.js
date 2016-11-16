@@ -951,42 +951,8 @@ function sendregister(recipientId) {
   };  
 
   callSendAPI(messageData);
- registerfunc(recipientId);
+ 
 }
-
-function registerfunc(recipientId){
-var message = event.message;	
- var messageText = message.text;	
- if (messageText) {
-		 switch (messageText) {
-			 
-		case 'Mr.A':
-        var messageData = {
-		recipient: {
-		id: recipientId
-		},
-		message: {
-		text:"You Lie !!"
-        }};  
-        break;
-	
-		  default:
-        var messageData = {
-		recipient: {
-		id: recipientId
-		},
-		message: {
-		text:"Successfully !!"
-        }};   
-		}
-
- }
- callSendAPI(messageData);
-}
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll 
