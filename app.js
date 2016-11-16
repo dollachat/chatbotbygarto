@@ -821,7 +821,7 @@ function sendAccountLinking(recipientId) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendglaon(recipientId) {
-
+var RID = String(recipentId);
   var messageData = {
     recipient: {
       id: recipientId
@@ -834,11 +834,11 @@ function sendAccountLinking(recipientId) {
   };  
 
   callSendAPI(messageData);
-sendonled();
+sendonled(RID);
 }
 
 function sendglaoff(recipientId) {
-
+var RID = String(recipentId);
   var messageData = {
     recipient: {
       id: recipientId
@@ -851,7 +851,7 @@ function sendglaoff(recipientId) {
   };  
 
   callSendAPI(messageData);
-  sendoffled();
+  sendoffled(RID);
 }
 
  
@@ -892,7 +892,7 @@ connection.connect();
 //var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '1'    WHERE recipentpi.recipentid =?";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
 
  connection.query(sql, function(err) {
     if (err) throw err;
@@ -914,7 +914,7 @@ connection.connect();
 
 //var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid =?";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
 
 
 connection.query(sql, function(err) {
