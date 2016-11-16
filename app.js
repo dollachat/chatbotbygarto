@@ -821,7 +821,7 @@ function sendAccountLinking(recipientId) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendledon(recipientId) {
- var garto = String(recipientId);
+ var RID = String(recipientId);
  
   var messageData = {
     recipient: {
@@ -836,12 +836,12 @@ function sendAccountLinking(recipientId) {
 
   callSendAPI(messageData);
   
-sendonfunc(garto);
+onfunc(RID);
 }
 
 function sendledoff(recipientId) {
- var garto = String(recipientId);	
-var RID = recipentId;
+ var RID = String(recipientId);	
+
   var messageData = {
     recipient: {
       id: recipientId
@@ -854,7 +854,7 @@ var RID = recipentId;
   };  
 
   callSendAPI(messageData);
- sendofffunc(garto);
+ offfunc(RID);
 }
 
  
@@ -881,7 +881,7 @@ function sendcheckid(recipientId) {
 
 
 
-function sendonfunc(garto){
+function onfunc(RID){
     
  
 	
@@ -898,7 +898,7 @@ connection.connect();
 //var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '1'    WHERE recipentpi.recipentid = ("+ garto +")";
+ SET state = '1'    WHERE recipentpi.recipentid = ("+ RID +")";
 
 
  connection.query(sql, function(err) {
@@ -909,7 +909,7 @@ var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=
 
 }
 
-function sendofffunc(garto){
+function offfunc(RID){
 	
 
 var connection = mysql.createConnection({
@@ -923,7 +923,7 @@ connection.connect();
 
 //var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ garto +")";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
 
 
 connection.query(sql, function(err) {
