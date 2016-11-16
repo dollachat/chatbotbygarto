@@ -821,7 +821,7 @@ function sendAccountLinking(recipientId) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendglaon(recipientId) {
-var RID = String(recipentId);
+var RID = recipentId;
   var messageData = {
     recipient: {
       id: recipientId
@@ -838,7 +838,7 @@ sendonled(RID);
 }
 
 function sendglaoff(recipientId) {
-var RID = String(recipentId);
+var RID = recipentId;
   var messageData = {
     recipient: {
       id: recipientId
@@ -879,7 +879,7 @@ function sendcheckid(recipientId) {
 
 
 function sendonled(RID){
-
+var SRID = String(RRID);
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -892,7 +892,7 @@ connection.connect();
 //var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ SRID +")";
 
  connection.query(sql, function(err) {
     if (err) throw err;
@@ -901,8 +901,8 @@ var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=
 
 }
 
-function sendoffled(RID){
-
+function sendoffled(RRID){
+var SRID = String(RRID);
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -914,7 +914,7 @@ connection.connect();
 
 //var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
+ SET state = '0'    WHERE recipentpi.recipentid = ("+ SRID +")";
 
 
 connection.query(sql, function(err) {
