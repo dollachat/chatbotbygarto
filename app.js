@@ -27,12 +27,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 var mysql = require('mysql');
 
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -316,19 +313,15 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 		
-	    case 'Turn on LED':
-		  sendledon(senderID);
+	    case 'glaon':
+		  sendglaon(senderID);
         break;
-		 case 'Turn off LED':
-		  sendledoff(senderID);
+		 case 'glaoff':
+		  sendglaoff(senderID);
         break;
 		
 		case 'check id':
 		  sendcheckid(senderID);
-        break;
-		
-		case 'Register':
-		  sendregister(senderID);
         break;
 
       default:
@@ -823,28 +816,52 @@ function sendAccountLinking(recipientId) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  function sendledon(recipientId) {
- var RID = String(recipientId);
- 
+function sendglaon(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-       text:"LED ON" 
+       text:"LED ON"
         }
       
     
   };  
 
   callSendAPI(messageData);
-  
-onfunc(RID);
+  sendonled();
 }
 
-function sendledoff(recipientId) {
- var RID = String(recipientId);	
+function sendglaoff(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED OFF"
+        }
+      
+    
+  };  
+  
+  
+  function sendglaon(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"LED ON"
+        }
+      
+    
+  };  
 
+  callSendAPI(messageData);
+  sendonled();
+}
+
+function sendglaoff(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -857,135 +874,73 @@ function sendledoff(recipientId) {
   };  
 
   callSendAPI(messageData);
- offfunc(RID);
+  sendoffled();
 }
 
- 
 
-function sendcheckid(recipientId) {
-	
-
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-       text:"RecipentID is " + recipientId 
-         }
-      
-    
-  };  
 
   callSendAPI(messageData);
- 
-}
- 
- 
-
-
-
-function onfunc(RID){
-    
- 
-	
-
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
-
-connection.connect();
-
-//var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
-
-var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '1'    WHERE recipentpi.recipentid = ("+ RID +")";
-
-
- connection.query(sql, function(err) {
-    if (err) throw err;
-    connection.end();
-});
-
-
+  sendoffled();
 }
 
-function offfunc(RID){
-	
-
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
-
-connection.connect();
-
-//var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
-var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=recipentpi.raspberrypi  \
- SET state = '0'    WHERE recipentpi.recipentid = ("+ RID +")";
-
-
-connection.query(sql, function(err) {
-    if (err) throw err;
-   connection.end();
-});
-
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function sendregister(recipientId) {
- 
+function sendcheckid(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-       text:"What is your Name ?"
+       text:"Your ID is " + recipientId
         }
       
     
   };  
 
   callSendAPI(messageData);
- registerfunc(recipientId);
-}
-
-function registerfunc(recipientId){
-var message = event.message;	
- var messageText = message.text;	
- if (messageText) {
-		 switch (messageText) {
-			 
-		case 'Mr.A':
-        var messageData = {
-		recipient: {
-		id: recipientId
-		},
-		message: {
-		text:"You Lie !!"
-        }};  
-        break;
-	
-		  default:
-        var messageData = {
-		recipient: {
-		id: recipientId
-		},
-		message: {
-		text:"Successfully !!"
-        }};   
-}
-
- }
- callSendAPI(messageData);
+ 
 }
 
 
 
+ 
+
+
+function sendonled(){
+
+var connection = mysql.createConnection({
+host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'c4xt0mnh7gsp6lee',
+  password : 'wa9jf0jnak5u2xax',
+  database : 'q7czfydkfgzwv903'
+});
+
+connection.connect();
+
+var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
+
+connection.query(sql, function(err) {
+    if (err) throw err;
+    connection.end();
+});
+
+}
+
+function sendoffled(){
+var connection = mysql.createConnection({
+host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'c4xt0mnh7gsp6lee',
+  password : 'wa9jf0jnak5u2xax',
+  database : 'q7czfydkfgzwv903'
+});
+
+connection.connect();
+
+var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
+
+connection.query(sql, function(err) {
+    if (err) throw err;
+    connection.end();
+});
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
