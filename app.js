@@ -327,6 +327,9 @@ function receivedMessage(event) {
 		  sendcheckid(senderID);
         break;
 		
+		case 'Register':
+		  sendregister(senderID);
+        break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -932,6 +935,57 @@ connection.query(sql, function(err) {
 });
 
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function sendregister(recipientId) {
+ 
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+       text:"What is your Name ?"
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
+ registerfunc(recipientId);
+}
+
+function registerfunc(recipientId){
+var message = event.message;	
+ var messageText = message.text;	
+ if (messageText) {
+		 switch (messageText) {
+			 
+		case 'Mr.A':
+        var messageData = {
+		recipient: {
+		id: recipientId
+		},
+		message: {
+		text:"You Lie !!"
+        }};  
+        break;
+	
+		  default:
+        var messageData = {
+		recipient: {
+		id: recipientId
+		},
+		message: {
+		text:"Successfully !!"
+        }};   
+}
+
+ }
+ callSendAPI(messageData);
+}
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
