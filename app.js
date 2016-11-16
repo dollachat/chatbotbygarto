@@ -822,6 +822,7 @@ function sendAccountLinking(recipientId) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendglaon(recipientId) {
  var garto = String(recipientId);
+ /*
   var messageData = {
     recipient: {
       id: recipientId
@@ -834,7 +835,8 @@ function sendAccountLinking(recipientId) {
   };  
 
   callSendAPI(messageData);
-//sendonled();
+  */
+sendonled(garto);
 }
 
 function sendglaoff(recipientId) {
@@ -879,7 +881,7 @@ function sendcheckid(recipientId) {
 
 
 
-function sendonled(){
+function sendonled(garto){
     
  
 	/*
@@ -903,6 +905,18 @@ var sql = "UPDATE raspberrypi  INNER JOIN recipentpi ON raspberrypi.raspberrypi=
     if (err) throw err;
     connection.end();
 });*/
+var messageData = {
+    recipient: {
+      id: garto
+    },
+    message: {
+       text:"Successful Passing"  + garto 
+        }
+      
+    
+  };  
+
+  callSendAPI(messageData);
 
 }
 
