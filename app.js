@@ -824,7 +824,7 @@ function sendAccountLinking(recipientId) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function sendledon(recipientId) {
- var RID = String(recipientId);
+
  
   var messageData = {
     recipient: {
@@ -839,11 +839,11 @@ function sendAccountLinking(recipientId) {
 
   callSendAPI(messageData);
   
-onfunc(RID);
+glaon();
 }
 
 function sendledoff(recipientId) {
- var RID = String(recipientId);	
+
 
   var messageData = {
     recipient: {
@@ -857,7 +857,7 @@ function sendledoff(recipientId) {
   };  
 
   callSendAPI(messageData);
- offfunc(RID);
+ glaoff();
 }
 
  
@@ -884,7 +884,7 @@ function sendcheckid(recipientId) {
 
 
 
-function onfunc(RID){
+function glaon(){
     
  
 	
@@ -898,7 +898,6 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 
 connection.connect();
 
-//var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
@@ -911,7 +910,7 @@ var sql = "UPDATE raspberrypi SET state = '1' WHERE raspberrypi = 'RPI1' ";
 
 }
 
-function offfunc(RID){
+function glaoff(){
 	
 
 var connection = mysql.createConnection({
@@ -923,7 +922,7 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 
 connection.connect();
 
-//var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
+
 var sql = "UPDATE raspberrypi SET state = '0' WHERE raspberrypi = 'RPI1' ";
 
 
