@@ -485,9 +485,9 @@ function receivedMessage(event) {
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
-    lat = event.message.attachments[0].payload.coordinates.lat
+  /*  lat = event.message.attachments[0].payload.coordinates.lat
     lng = event.message.attachments[0].payload.coordinates.long
-console.log("Location Coordinate = [%d,%d]",lat,lng )
+console.log("Location Coordinate = [%d,%d]",lat,lng )*/
   }
 
 }
