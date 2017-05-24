@@ -494,7 +494,7 @@ function receivedMessage(event) {
     googlemapdistance(lat,lng);
     Waitstate();
     sendTextMessage(senderID, latandlng);
-    sendTextMessage(senderID , "The device will turn on when you arrive")
+    sendTextMessage(senderID , "The device will turn on when you arrive");
        
     }catch(err){
       sendTextMessage(senderID, "Missed Location.");
