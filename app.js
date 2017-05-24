@@ -510,9 +510,11 @@ function receivedMessage(event) {
     if(lat && lng){
     var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
     sendTextMessage(senderID, latandlng);
-   
-    // googlemapdistance(lat,lng);
-    // Waitstate();
+    try{   
+    googlemapdistance(lat,lng);
+    Waitstate();
+    }catch(err){}
+  
     }else { 
     sendTextMessage(senderID, "Missed Location.");
     }
