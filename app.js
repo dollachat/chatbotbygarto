@@ -1182,7 +1182,7 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 });
 
 connection.connect();
-"UPDATE q7czfydkfgzwv903.raspberrypi AS R \
+var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
 INNER JOIN q7czfydkfgzwv903.Permission P \
 ON P.RPI=R.raspberrypi SET R.state = '2' WHERE P.FbID = '"+FbID+"'";
 
