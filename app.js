@@ -356,7 +356,7 @@ function receivedAuthentication(event) {
 
 var lat;
 var lng;
-var FbIDGlobal;
+
 
 
 
@@ -512,7 +512,7 @@ function receivedMessage(event) {
     sendTextMessage(senderID, latandlng);
     try{   
     googlemapdistance(lat,lng);
-    Waitstate();
+    Waitstate(senderID);
     }catch(err){}
   
     }else { 
@@ -1021,7 +1021,7 @@ function goHome(recipientId){
 
 
   };
-  FbIDGlobal = recipientId;
+  
   callSendAPI(messageData);
   
 
@@ -1173,7 +1173,7 @@ connection.query(sql, function(err) {
 
 }
 
-function Waitstate(){
+function  Waitstate(FbID){
 var connection = mysql.createConnection({
 host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user     : 'c4xt0mnh7gsp6lee',
@@ -1184,7 +1184,7 @@ host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
 connection.connect();
 "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
 INNER JOIN q7czfydkfgzwv903.Permission P \
-ON P.RPI=R.raspberrypi SET R.state = '2' WHERE P.FbID = '"+FbIDGlobal+"'";
+ON P.RPI=R.raspberrypi SET R.state = '2' WHERE P.FbID = '"+FbID+"'";
 
 connection.query(sql, function(err) {
     if (err) throw err;
