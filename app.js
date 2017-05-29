@@ -387,9 +387,10 @@ function receivedMessage(event) {
       var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
       sendTextMessage(senderID, latandlng);
       try {
-        googlemapdistance(lat, lng);
+        // googlemapdistance(lat, lng);
+        googlemapdistance(lat, lng,senderID);
         Waitstate(senderID);
-        setTimeout(getDuration(senderID), 10000);
+        
         // getDuration(senderID);
         } catch (err) { }
 
@@ -1122,7 +1123,7 @@ module.exports = app;
 //
 // Function for googlemapdistance
 
-function googlemapdistance(lat, lng) {
+function googlemapdistance(lat, lng , senderID) {
   // Access to google map console with my own API  
   distance.apiKey = 'AIzaSyBWOT0sTRJ8N6-7GnNiNx32J2m1WDCihWg';
 
@@ -1197,6 +1198,11 @@ function googlemapdistance(lat, lng) {
       connection.end();
     });
   }
+
+
+
+getDuration(senderID);
+
 }
 
 function getDuration(recipientId){
