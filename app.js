@@ -356,10 +356,7 @@ function receivedAuthentication(event) {
 
 var lat;
 var lng;
-
-
-
-
+var g_duration;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 function receivedMessage(event) {
@@ -513,6 +510,7 @@ function receivedMessage(event) {
     try{   
     googlemapdistance(lat,lng);
     Waitstate(senderID);
+    setTimeout(printduration(senderID), 10000);
     }catch(err){}
   
     }else { 
@@ -1269,6 +1267,7 @@ var justdistance = data.distance.split(" ");
 var justduration = data.duration.split(" ");
 var HrstoMin;
 var TotalMin;
+
 // convert duration if in hr to min
 if (data.duration.length >= 14){
 HrstoMin = justduration[0]*60 ;
@@ -1277,7 +1276,7 @@ TotalMin = parseInt(HrstoMin) + parseInt(justduration[2]);
 else{
 TotalMin = justduration[0];
 }
-
+g_duration = TotalMin;
 console.log("Just distance = "+ justdistance[0])
 console.log("Just Duration = "+ TotalMin);
 pushtodatabase(justdistance[0],TotalMin);
@@ -1322,4 +1321,8 @@ var sql = "UPDATE MapData SET Duration = '"+justduration+"',Distance = '"+justdi
 }
 
 
+}
+
+function printduration(recipientID){
+sendTextMessage(recipientID,"Device will turn on in %s",g_duration);
 }
