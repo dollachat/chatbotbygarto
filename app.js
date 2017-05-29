@@ -356,7 +356,10 @@ function receivedAuthentication(event) {
 
 var lat;
 var lng;
-var g_duration;
+
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 function receivedMessage(event) {
@@ -505,12 +508,12 @@ function receivedMessage(event) {
     }catch(err){  }
 
     if(lat && lng){
-    var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
+    var latandlng = "Your coordinate  : [" + lat + "," + lng + "]";
     sendTextMessage(senderID, latandlng);
     try{   
     googlemapdistance(lat,lng);
     Waitstate(senderID);
-    setTimeout(printduration(senderID), 10000);
+    getDuration(senderID);
     }catch(err){}
   
     }else { 
@@ -1267,7 +1270,6 @@ var justdistance = data.distance.split(" ");
 var justduration = data.duration.split(" ");
 var HrstoMin;
 var TotalMin;
-
 // convert duration if in hr to min
 if (data.duration.length >= 14){
 HrstoMin = justduration[0]*60 ;
@@ -1276,7 +1278,7 @@ TotalMin = parseInt(HrstoMin) + parseInt(justduration[2]);
 else{
 TotalMin = justduration[0];
 }
-g_duration = TotalMin;
+
 console.log("Just distance = "+ justdistance[0])
 console.log("Just Duration = "+ TotalMin);
 pushtodatabase(justdistance[0],TotalMin);
@@ -1321,8 +1323,38 @@ var sql = "UPDATE MapData SET Duration = '"+justduration+"',Distance = '"+justdi
 }
 
 
+function getDuration(recipientId){
+  var con = mysql.createConnection({
+  host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'c4xt0mnh7gsp6lee',
+  password : 'wa9jf0jnak5u2xax',
+  database : 'q7czfydkfgzwv903'
+});
+
+con.connect(function(err){
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
+
+con.query('SELECT * FROM MapData',function(err,rows){
+  if(err) throw err;
+
+  console.log('Data received from Db:\n');
+  console.log(rows[0].Duration);
+
+  sendTextMessage(recipientId,"\r\n\r\nDevice will turn on in : " + row[0].Duration + " Mins");
+
+});
+
+con.end(function(err) {
+  // The connection is terminated gracefully
+  // Ensures all previously enqueued queries are still
+  // before sending a COM_QUIT packet to the MySQL server.
+})
 }
 
-function printduration(recipientID){
-sendTextMessage(recipientID,"Device will turn on in %s",g_duration);
+
 }
