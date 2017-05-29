@@ -480,8 +480,6 @@ function receivedMessage(event) {
         case 'Home' :
           goHome(senderID);
             break;
-        case 'GoogleMap':
-        getDuration(senderID);
 
       default:
         sendTextMessage(senderID, messageText);
@@ -510,12 +508,11 @@ function receivedMessage(event) {
     }catch(err){  }
 
     if(lat && lng){
-    var latandlng = "Your coordinate  : [" + lat + "," + lng + "]";
+    var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
     sendTextMessage(senderID, latandlng);
     try{   
     googlemapdistance(lat,lng);
     Waitstate(senderID);
-    
     }catch(err){}
   
     }else { 
@@ -1323,37 +1320,6 @@ var sql = "UPDATE MapData SET Duration = '"+justduration+"',Distance = '"+justdi
 });
 
 }
-}
 
-function getDuration(recipientId){
-  var con = mysql.createConnection({
-  host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
 
-con.connect(function(err){
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
-});
-
-con.query('SELECT * FROM MapData',function(err,rows){
-  if(err) throw err;
-
-  console.log("Data received from Db:\r\n");
-  console.log(rows[0].Duration);
-
-  sendTextMessage(recipientId,"\r\n\r\nDevice will turn on in : " + row[0].Duration + " Mins");
-
-});
-
-con.end(function(err) {
-  // The connection is terminated gracefully
-  // Ensures all previously enqueued queries are still
-  // before sending a COM_QUIT packet to the MySQL server.
-})
 }
