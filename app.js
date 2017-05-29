@@ -1209,7 +1209,7 @@ function getDuration(recipientId){
         connection.query(sql, function (err,rows) {
       if (err) throw err;
 
-      console.log(row[0].Duration);
+      console.log("Duration left :"+ rows[0].Duration + "Mins");
 
       connection.end();
     });
