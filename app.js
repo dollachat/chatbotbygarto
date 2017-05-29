@@ -25,7 +25,7 @@ var app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var mysql = require('mysql');
@@ -69,9 +69,9 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
  * setup is the same token used here.
  *
  */
-app.get('/webhook', function(req, res) {
+app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+    req.query['hub.verify_token'] === VALIDATION_TOKEN) {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
@@ -95,12 +95,12 @@ app.post('/webhook', function (req, res) {
   if (data.object == 'page') {
     // Iterate over each entry
     // There may be multiple if batched
-    data.entry.forEach(function(pageEntry) {
+    data.entry.forEach(function (pageEntry) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
 
       // Iterate over each messaging event
-      pageEntry.messaging.forEach(function(messagingEvent) {
+      pageEntry.messaging.forEach(function (messagingEvent) {
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
@@ -132,7 +132,7 @@ app.post('/webhook', function (req, res) {
  * (sendAccountLinking) is pointed to this URL.
  *
  */
-app.get('/authorize', function(req, res) {
+app.get('/authorize', function (req, res) {
   var accountLinkingToken = req.query.account_linking_token;
   var redirectURI = req.query.redirect_uri;
 
@@ -171,8 +171,8 @@ function verifyRequestSignature(req, res, buf) {
     var signatureHash = elements[1];
 
     var expectedHash = crypto.createHmac('sha1', APP_SECRET)
-                        .update(buf)
-                        .digest('hex');
+      .update(buf)
+      .digest('hex');
 
     if (signatureHash != expectedHash) {
       throw new Error("Couldn't validate the request signature.");
@@ -224,133 +224,6 @@ function receivedAuthentication(event) {
  *
  */
 
- //////////////////////////////////////////////////////////////////////////////////////////// Backup receivedMessage
-// function receivedMessage(event) {
-//   var senderID = event.sender.id;
-//   var recipientID = event.recipient.id;
-//   var timeOfMessage = event.timestamp;
-//   var message = event.message;
-//
-//   console.log("Received message for user %d and page %d at %d with message:",
-//     senderID, recipientID, timeOfMessage);
-//   console.log(JSON.stringify(message));
-//
-//   var isEcho = message.is_echo;
-//   var messageId = message.mid;
-//   var appId = message.app_id;
-//   var metadata = message.metadata;
-//
-//   // You may get a text or attachment but not both
-//   var messageText = message.text;
-//   var messageAttachments = message.attachments;
-//   var quickReply = message.quick_reply;
-//
-//   if (isEcho) {
-//     // Just logging message echoes to console
-//     console.log("Received echo for message %s and app %d with metadata %s",
-//       messageId, appId, metadata);
-//     return;
-//   } else if (quickReply) {
-//     var quickReplyPayload = quickReply.payload;
-//     console.log("Quick reply for message %s with payload %s",
-//       messageId, quickReplyPayload);
-//
-//     sendTextMessage(senderID, "Quick reply tapped");
-//     return;
-//   }
-//
-//   if (messageText) {
-//
-//     // If we receive a text message, check to see if it matches any special
-//     // keywords and send back the corresponding example. Otherwise, just echo
-//     // the text we received.
-//     switch (messageText) {
-//       case 'image':
-//         sendImageMessage(senderID);
-//         break;
-//
-//       case 'gif':
-//         sendGifMessage(senderID);
-//         break;
-//
-//       case 'audio':
-//         sendAudioMessage(senderID);
-//         break;
-//
-//       case 'video':
-//         sendVideoMessage(senderID);
-//         break;
-//
-//       case 'file':
-//         sendFileMessage(senderID);
-//         break;
-//
-//       case 'button':
-//         sendButtonMessage(senderID);
-//         break;
-//
-//       case 'generic':
-//         sendGenericMessage(senderID);
-//         break;
-//
-//       case 'receipt':
-//         sendReceiptMessage(senderID);
-//         break;
-//
-//       case 'quick reply':
-//         sendQuickReply(senderID);
-//         break;
-//
-//       case 'read receipt':
-//         sendReadReceipt(senderID);
-//         break;
-//
-//       case 'typing on':
-//         sendTypingOn(senderID);
-//         break;
-//
-//       case 'typing off':
-//         sendTypingOff(senderID);
-//         break;
-//
-//       case 'account linking':
-//         sendAccountLinking(senderID);
-//         break;
-//
-// 	    case 'Turn on LED':
-// 		  sendledon(senderID);
-//         break;
-// 		 case 'Turn off LED':
-// 		  sendledoff(senderID);
-//         break;
-//
-// 		case 'check id':
-// 		  sendcheckid(senderID);
-//         break;
-//
-// 		case 'Register':
-// 		  sendregister(senderID);
-//         break;
-//
-//         case 'Time now' :
-//             getTimeNow(senderID);
-// 	      break;
-//
-//         case 'testtime' :
-//             timereply(senderID);
-//         break;
-//
-//         case 'Home' :
-//           goHome(senderID);
-//             break;
-//
-//       default:
-//         sendTextMessage(senderID, messageText);
-//     }
-//   } else if (messageAttachments) {
-//     sendTextMessage(senderID, "Message with attachment received");
-//   }
-// }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Global Variables
 
@@ -454,40 +327,43 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 
-	    case 'Turn on':
-		  sendledon(senderID);
+      case 'Turn on':
+        sendledon(senderID);
         break;
-		 case 'Turn off':
-		  sendledoff(senderID);
-        break;
-
-		case 'check id':
-		  sendcheckid(senderID);
+      case 'Turn off':
+        sendledoff(senderID);
         break;
 
-		case 'Register':
-		  sendregister(senderID);
+      case 'check id':
+        sendcheckid(senderID);
         break;
 
-        case 'Time now' :
-            getTimeNow(senderID);
-	      break;
-
-        case 'testtime' :
-            timereply(senderID);
+      case 'Register':
+        sendregister(senderID);
         break;
 
-        case 'Home' :
-          goHome(senderID);
-            break;
+      case 'Time now':
+        getTimeNow(senderID);
+        break;
+
+      case 'testtime':
+        timereply(senderID);
+        break;
+
+      case 'Home':
+        goHome(senderID);
+        break;
+      case 'Mapping':
+        getDuration(senderID);
+        break;
 
       default:
         sendTextMessage(senderID, messageText);
     }
   } else if (messageAttachments) {
     // sendTextMessage(senderID, "Message with attachment received");  // This is default message attach from Facebook
-    
-    
+
+
     // try{
     // lat = event.message.attachments[0].payload.coordinates.lat;
     // lng = event.message.attachments[0].payload.coordinates.long;
@@ -497,26 +373,26 @@ function receivedMessage(event) {
     // Waitstate();
     // sendTextMessage(senderID, latandlng);
     // sendTextMessage(senderID , "The device will turn on when you arrive");
-       
+
     // }catch(err){
     //   sendTextMessage(senderID, "Missed Location.");
     // }
-    try{
-    lat = event.message.attachments[0].payload.coordinates.lat;
-    lng = event.message.attachments[0].payload.coordinates.long;
-    
-    }catch(err){  }
+    try {
+      lat = event.message.attachments[0].payload.coordinates.lat;
+      lng = event.message.attachments[0].payload.coordinates.long;
 
-    if(lat && lng){
-    var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
-    sendTextMessage(senderID, latandlng);
-    try{   
-    googlemapdistance(lat,lng);
-    Waitstate(senderID);
-    }catch(err){}
-  
-    }else { 
-    sendTextMessage(senderID, "Missed Location.");
+    } catch (err) { }
+
+    if (lat && lng) {
+      var latandlng = "Your coordinate  : [" + lat + "," + lng + "]" + "\r\n The device will turn on when you arrive";
+      sendTextMessage(senderID, latandlng);
+      try {
+        googlemapdistance(lat, lng);
+        Waitstate(senderID);
+      } catch (err) { }
+
+    } else {
+      sendTextMessage(senderID, "Missed Location.");
     }
 
   }
@@ -539,7 +415,7 @@ function receivedDeliveryConfirmation(event) {
   var sequenceNumber = delivery.seq;
 
   if (messageIDs) {
-    messageIDs.forEach(function(messageID) {
+    messageIDs.forEach(function (messageID) {
       console.log("Received delivery confirmation for message ID: %s",
         messageID);
     });
@@ -754,7 +630,7 @@ function sendButtonMessage(recipientId) {
         payload: {
           template_type: "button",
           text: "This is test text",
-          buttons:[{
+          buttons: [{
             type: "web_url",
             url: "https://www.oculus.com/en-us/rift/",
             title: "Open Web URL"
@@ -832,13 +708,13 @@ function sendGenericMessage(recipientId) {
  */
 function sendReceiptMessage(recipientId) {
   // Generate a random receipt ID as the API requires a unique ID
-  var receiptId = "order" + Math.floor(Math.random()*1000);
+  var receiptId = "order" + Math.floor(Math.random() * 1000);
 
   var messageData = {
     recipient: {
       id: recipientId
     },
-    message:{
+    message: {
       attachment: {
         type: "template",
         payload: {
@@ -905,19 +781,19 @@ function sendQuickReply(recipientId) {
       text: "What's your favorite movie genre?",
       quick_replies: [
         {
-          "content_type":"text",
-          "title":"Action",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_ACTION"
+          "content_type": "text",
+          "title": "Action",
+          "payload": "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_ACTION"
         },
         {
-          "content_type":"text",
-          "title":"Comedy",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_COMEDY"
+          "content_type": "text",
+          "title": "Comedy",
+          "payload": "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_COMEDY"
         },
         {
-          "content_type":"text",
-          "title":"Drama",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_DRAMA"
+          "content_type": "text",
+          "title": "Drama",
+          "payload": "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_DRAMA"
         }
       ]
     }
@@ -992,7 +868,7 @@ function sendAccountLinking(recipientId) {
         payload: {
           template_type: "button",
           text: "Welcome. Link your account.",
-          buttons:[{
+          buttons: [{
             type: "account_link",
             url: SERVER_URL + "/authorize"
           }]
@@ -1006,34 +882,34 @@ function sendAccountLinking(recipientId) {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function goHome(recipientId){
+function goHome(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-  text : "Please shared your location",
-  quick_replies: [ {
-    "content_type":"location",
+      text: "Please shared your location",
+      quick_replies: [{
+        "content_type": "location",
 
       }]
-        }
+    }
 
 
   };
-  
+
   callSendAPI(messageData);
-  
+
 
 }
 
 
-function timereply(recipientId){
+function timereply(recipientId) {
   var d = new Date();
   var min = d.toLocaleTimeString().split(":");
-var intmin = parseInt(min[1] );
+  var intmin = parseInt(min[1]);
   var msgstring;
-  if (intmin % 2 == 0){
+  if (intmin % 2 == 0) {
     msgstring = 'this is even';
   }
   else {
@@ -1046,8 +922,8 @@ var intmin = parseInt(min[1] );
       id: recipientId
     },
     message: {
-       text:"The current time is " + d.toLocaleTimeString() + "  Test :" + msgstring
-        }
+      text: "The current time is " + d.toLocaleTimeString() + "  Test :" + msgstring
+    }
 
 
   };
@@ -1057,7 +933,7 @@ var intmin = parseInt(min[1] );
 
 };
 
-function getTimeNow(recipientId){
+function getTimeNow(recipientId) {
   var d = new Date();
   //d.toLocaleTimeString()
   var messageData = {
@@ -1065,8 +941,8 @@ function getTimeNow(recipientId){
       id: recipientId
     },
     message: {
-       text:"The current time is " + d.toLocaleTimeString()
-        }
+      text: "The current time is " + d.toLocaleTimeString()
+    }
 
 
   };
@@ -1077,7 +953,7 @@ function getTimeNow(recipientId){
 
 }
 
-  function sendledon(recipientId) {
+function sendledon(recipientId) {
 
 
   var messageData = {
@@ -1085,15 +961,15 @@ function getTimeNow(recipientId){
       id: recipientId
     },
     message: {
-       text:"Device is ON"
-        }
+      text: "Device is ON"
+    }
 
 
   };
 
   callSendAPI(messageData);
 
-onLight(recipientId);
+  onLight(recipientId);
 }
 
 function sendledoff(recipientId) {
@@ -1104,14 +980,14 @@ function sendledoff(recipientId) {
       id: recipientId
     },
     message: {
-       text:"Device is OFF"
-        }
+      text: "Device is OFF"
+    }
 
 
   };
 
   callSendAPI(messageData);
- offLight(recipientId);
+  offLight(recipientId);
 }
 
 
@@ -1122,8 +998,8 @@ function sendcheckid(recipientId) {
       id: recipientId
     },
     message: {
-       text:"RecipentID is " + recipientId
-         }
+      text: "RecipentID is " + recipientId
+    }
 
 
   };
@@ -1131,72 +1007,72 @@ function sendcheckid(recipientId) {
 
 }
 
-function onLight(FbID){
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
+function onLight(FbID) {
+  var connection = mysql.createConnection({
+    host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'c4xt0mnh7gsp6lee',
+    password: 'wa9jf0jnak5u2xax',
+    database: 'q7czfydkfgzwv903'
+  });
 
-connection.connect();
-var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
+  connection.connect();
+  var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
 INNER JOIN q7czfydkfgzwv903.Permission P \
-ON P.RPI=R.raspberrypi SET R.state = '1' WHERE P.FbID = '"+FbID+"'";
+ON P.RPI=R.raspberrypi SET R.state = '1' WHERE P.FbID = '"+ FbID + "'";
 
 
 
- connection.query(sql, function(err) {
+  connection.query(sql, function (err) {
     if (err) throw err;
     connection.end();
-});
+  });
 }
 
-function offLight(FbID){
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
+function offLight(FbID) {
+  var connection = mysql.createConnection({
+    host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'c4xt0mnh7gsp6lee',
+    password: 'wa9jf0jnak5u2xax',
+    database: 'q7czfydkfgzwv903'
+  });
 
-connection.connect();
-var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
+  connection.connect();
+  var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
 INNER JOIN q7czfydkfgzwv903.Permission P \
-ON P.RPI=R.raspberrypi SET R.state = '0' WHERE P.FbID = '"+FbID+"'";
+ON P.RPI=R.raspberrypi SET R.state = '0' WHERE P.FbID = '"+ FbID + "'";
 
 
-connection.query(sql, function(err) {
+  connection.query(sql, function (err) {
     if (err) throw err;
-   connection.end();
-});
+    connection.end();
+  });
 
 }
 
-function  Waitstate(FbID){
-console.log("In Waitstate \r\n");
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
+function Waitstate(FbID) {
+  console.log("In Waitstate \r\n");
+  var connection = mysql.createConnection({
+    host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'c4xt0mnh7gsp6lee',
+    password: 'wa9jf0jnak5u2xax',
+    database: 'q7czfydkfgzwv903'
+  });
 
-connection.connect();
-var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
+  connection.connect();
+  var sql = "UPDATE q7czfydkfgzwv903.raspberrypi AS R \
 INNER JOIN q7czfydkfgzwv903.Permission P \
-ON P.RPI=R.raspberrypi SET R.state = '2' WHERE P.FbID = '"+FbID+"'";
+ON P.RPI=R.raspberrypi SET R.state = '2' WHERE P.FbID = '"+ FbID + "'";
 
 
-connection.query(sql, function(err) {
+  connection.query(sql, function (err) {
     if (err) throw err;
-   connection.end();
-});
+    connection.end();
+  });
 
 }
-     
-        
- 
+
+
+
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
@@ -1218,8 +1094,8 @@ function callSendAPI(messageData) {
         console.log("Successfully sent message with id %s to recipient %s",
           messageId, recipientId);
       } else {
-      console.log("Successfully called Send API for recipient %s",
-        recipientId);
+        console.log("Successfully called Send API for recipient %s",
+          recipientId);
       }
     } else {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
@@ -1230,7 +1106,7 @@ function callSendAPI(messageData) {
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid
 // certificate authority.
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
 
@@ -1244,82 +1120,83 @@ module.exports = app;
 //
 // Function for googlemapdistance
 
-function googlemapdistance(lat,lng){
- // Access to google map console with my own API  
-distance.apiKey = 'AIzaSyBWOT0sTRJ8N6-7GnNiNx32J2m1WDCihWg'; 
+function googlemapdistance(lat, lng) {
+  // Access to google map console with my own API  
+  distance.apiKey = 'AIzaSyBWOT0sTRJ8N6-7GnNiNx32J2m1WDCihWg';
 
-var poslatlng =  lat+ ','+ lng;
+  var poslatlng = lat + ',' + lng;
 
-distance.get(
-  {
-    origin: poslatlng, 
-    destination: '13.612913, 100.835684' // Abac bangna
-  },
-  function(err, data) {
-    if (err) return console.log(err);
-    console.log(data);    
-    showdatastring(data);
-   
-});
-console.log("Function Googlemap Distance \r\n")
-function showdatastring(data){
-// console.log("Distance = "+ data.distance);
-// console.log("Duration = "+ data.duration);
-var justdistance = data.distance.split(" ");
-var justduration = data.duration.split(" ");
-var HrstoMin;
-var TotalMin;
-// convert duration if in hr to min
-if (data.duration.length >= 14){
-HrstoMin = justduration[0]*60 ;
-TotalMin = parseInt(HrstoMin) + parseInt(justduration[2]);
+  distance.get(
+    {
+      origin: poslatlng,
+      destination: '13.612913, 100.835684' // Abac bangna
+    },
+    function (err, data) {
+      if (err) return console.log(err);
+      console.log(data);
+      showdatastring(data);
+
+    });
+  console.log("Function Googlemap Distance \r\n")
+  function showdatastring(data) {
+    // console.log("Distance = "+ data.distance);
+    // console.log("Duration = "+ data.duration);
+    var justdistance = data.distance.split(" ");
+    var justduration = data.duration.split(" ");
+    var HrstoMin;
+    var TotalMin;
+    // convert duration if in hr to min
+    if (data.duration.length >= 14) {
+      HrstoMin = justduration[0] * 60;
+      TotalMin = parseInt(HrstoMin) + parseInt(justduration[2]);
+    }
+    else {
+      TotalMin = justduration[0];
+    }
+
+    console.log("Just distance = " + justdistance[0])
+    console.log("Just Duration = " + TotalMin);
+    pushtodatabase(justdistance[0], TotalMin);
+  }
+
+
+  // Return the value from Googlemap distance to Database
+  //
+  // function pushtodatabase(justdistance,justduration){
+  // var connection = mysql.createConnection({
+  // host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  //   user     : 'c4xt0mnh7gsp6lee',
+  //   password : 'wa9jf0jnak5u2xax',
+  //   database : 'q7czfydkfgzwv903'
+  // });
+
+  // connection.connect();
+  // //var sql = "UPDATE raspberrypi SET state = '2' WHERE raspberrypi = 'RPI1' ";
+  // var sql = "INSERT INTO MapData(RPI,Duration,Distance) VALUES ('RPI1',"+justduration+","+justdistance+")";
+  //  connection.query(sql, function(err) {
+  //     if (err) throw err;
+  //     connection.end();
+  // });
+
+  // }
+  function pushtodatabase(justdistance, justduration) {
+    var connection = mysql.createConnection({
+      host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: 'c4xt0mnh7gsp6lee',
+      password: 'wa9jf0jnak5u2xax',
+      database: 'q7czfydkfgzwv903'
+    });
+
+    connection.connect();
+    //var sql = "UPDATE raspberrypi SET state = '2' WHERE raspberrypi = 'RPI1' ";
+    var sql = "UPDATE MapData SET Duration = '" + justduration + "',Distance = '" + justdistance + "' WHERE RPI = 'RPI1'";
+    connection.query(sql, function (err) {
+      if (err) throw err;
+      connection.end();
+    });
+  }
 }
-else{
-TotalMin = justduration[0];
-}
 
-console.log("Just distance = "+ justdistance[0])
-console.log("Just Duration = "+ TotalMin);
-pushtodatabase(justdistance[0],TotalMin);
-}
-
-
-// Return the value from Googlemap distance to Database
-//
-// function pushtodatabase(justdistance,justduration){
-// var connection = mysql.createConnection({
-// host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-//   user     : 'c4xt0mnh7gsp6lee',
-//   password : 'wa9jf0jnak5u2xax',
-//   database : 'q7czfydkfgzwv903'
-// });
-
-// connection.connect();
-// //var sql = "UPDATE raspberrypi SET state = '2' WHERE raspberrypi = 'RPI1' ";
-// var sql = "INSERT INTO MapData(RPI,Duration,Distance) VALUES ('RPI1',"+justduration+","+justdistance+")";
-//  connection.query(sql, function(err) {
-//     if (err) throw err;
-//     connection.end();
-// });
-
-// }
-function pushtodatabase(justdistance,justduration){
-var connection = mysql.createConnection({
-host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
-
-connection.connect();
-//var sql = "UPDATE raspberrypi SET state = '2' WHERE raspberrypi = 'RPI1' ";
-var sql = "UPDATE MapData SET Duration = '"+justduration+"',Distance = '"+justdistance+"' WHERE RPI = 'RPI1'";
- connection.query(sql, function(err) {
-    if (err) throw err;
-    connection.end();
-});
-
-}
-
-
+function getDuration(recipientId){
+  sendTextMessage(recipientId,"Test send back");
 }
