@@ -1198,6 +1198,7 @@ function googlemapdistance(lat, lng) {
 }
 
 function getDuration(recipientId){
+  var timeleft;
   var connection = mysql.createConnection({
       host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
       user: 'c4xt0mnh7gsp6lee',
@@ -1208,11 +1209,11 @@ function getDuration(recipientId){
        var sql = "SELECT * FROM MapData";
         connection.query(sql, function (err,rows) {
       if (err) throw err;
-
+      timeleft = rows[0].Duration;
       console.log("Duration left :"+ rows[0].Duration + "Mins");
-
+      
       connection.end();
     });
 
-sendTextMessage(recipientId,"Connecting to server");
+sendTextMessage(recipientId,"Time before device on :" + timeleft + " Mins" );
 }
