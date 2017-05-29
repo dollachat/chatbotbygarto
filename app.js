@@ -389,7 +389,8 @@ function receivedMessage(event) {
       try {
         googlemapdistance(lat, lng);
         Waitstate(senderID);
-      } catch (err) { }
+        getDuration(senderID);
+        } catch (err) { }
 
     } else {
       sendTextMessage(senderID, "Missed Location.");
@@ -1211,7 +1212,7 @@ function getDuration(recipientId){
       if (err) throw err;
      
       console.log("Duration left :"+ rows[0].Duration + "Mins");
-      sendTextMessage(recipientId,"Time before device on :" + rows[0].Duration + " Mins" );
+      sendTextMessage(recipientId,"Time left :  " + rows[0].Duration + "  Mins" );
       connection.end();
     });
 
