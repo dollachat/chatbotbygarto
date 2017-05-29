@@ -1198,33 +1198,21 @@ function googlemapdistance(lat, lng) {
 }
 
 function getDuration(recipientId){
-  
-var con = mysql.createConnection({
-  host     : 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'c4xt0mnh7gsp6lee',
-  password : 'wa9jf0jnak5u2xax',
-  database : 'q7czfydkfgzwv903'
-});
+  var connection = mysql.createConnection({
+      host: 'nt71li6axbkq1q6a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: 'c4xt0mnh7gsp6lee',
+      password: 'wa9jf0jnak5u2xax',
+      database: 'q7czfydkfgzwv903'
+    });
+      connection.connect();
+       var sql = "SELECT * FROM MapData";
+        connection.query(sql, function (err,rows) {
+      if (err) throw err;
 
-con.connect(function(err){
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
-});
+      console.log(row[0].Duration);
 
-con.query('SELECT * FROM MapData',function(err,rows){
-  if(err) throw err;
+      connection.end();
+    });
 
-  console.log('Data received from Db:\n');
- 
-
-sendTextMessage(recipientId,"Device will turn on in : " + row[0].Duration + " Mins");
-
-});
-
-con.end(function(err) {
-
-})
+sendTextMessage(recipientId,"Connecting to server");
 }
