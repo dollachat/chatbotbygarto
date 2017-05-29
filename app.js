@@ -1342,7 +1342,7 @@ con.connect(function(err){
 con.query('SELECT * FROM MapData',function(err,rows){
   if(err) throw err;
 
-  console.log('Data received from Db:\n');
+  console.log("Data received from Db:\r\n");
   console.log(rows[0].Duration);
 
   sendTextMessage(recipientId,"\r\n\r\nDevice will turn on in : " + row[0].Duration + " Mins");
@@ -1357,4 +1357,3 @@ con.end(function(err) {
 }
 
 
-}
