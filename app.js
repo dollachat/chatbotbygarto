@@ -1196,13 +1196,9 @@ function googlemapdistance(lat, lng , senderID) {
     connection.query(sql, function (err) {
       if (err) throw err;
       connection.end();
+      getDuration(senderID);
     });
   }
-
-
-
-getDuration(senderID);
-
 }
 
 function getDuration(recipientId){
