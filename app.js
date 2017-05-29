@@ -389,7 +389,8 @@ function receivedMessage(event) {
       try {
         googlemapdistance(lat, lng);
         Waitstate(senderID);
-        getDuration(senderID);
+        setTimeout(getDuration(senderID), 10000);
+        // getDuration(senderID);
         } catch (err) { }
 
     } else {
@@ -1212,7 +1213,7 @@ function getDuration(recipientId){
       if (err) throw err;
      
       console.log("Duration left :"+ rows[0].Duration + "Mins");
-      sendTextMessage(recipientId,"Time left :  " + rows[0].Duration + "  Mins" );
+      sendTextMessage(recipientId,"Device will on in :  " + rows[0].Duration + "  Mins" );
       connection.end();
     });
 
