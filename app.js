@@ -480,6 +480,8 @@ function receivedMessage(event) {
         case 'Home' :
           goHome(senderID);
             break;
+        case 'GoogleMap':
+        getDuration(senderID);
 
       default:
         sendTextMessage(senderID, messageText);
@@ -513,7 +515,7 @@ function receivedMessage(event) {
     try{   
     googlemapdistance(lat,lng);
     Waitstate(senderID);
-    getDuration(senderID);
+    
     }catch(err){}
   
     }else { 
